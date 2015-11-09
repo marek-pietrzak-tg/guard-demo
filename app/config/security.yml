@@ -20,6 +20,12 @@ security:
 
         main:
             anonymous: ~
+            guard:
+                authenticators:
+                    - app.form_login_authenticator
+            logout:
+                path:   /logout
+                target: /login
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
