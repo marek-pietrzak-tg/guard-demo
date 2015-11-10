@@ -2,5 +2,12 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
+    database_host:     ~
+    database_port:     ~
+    database_name:     ~
+    database_user:     ~
+    database_password: ~
+    database_path: "%kernel.root_dir%/Resources/data/data.db3"
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
