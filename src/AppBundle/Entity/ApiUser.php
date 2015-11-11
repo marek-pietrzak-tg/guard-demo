@@ -81,7 +81,6 @@ class ApiUser implements ApiUserInterface
         return array_unique($roles);
     }
 
-
     /**
      * {@inheritdoc}
      */

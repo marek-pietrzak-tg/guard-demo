@@ -3,7 +3,6 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
 class ApiUserRepository extends EntityRepository implements ApiUserRepositoryInterface
 {
@@ -12,12 +11,6 @@ class ApiUserRepository extends EntityRepository implements ApiUserRepositoryInt
     */
     public function findOneByApiToken($apiToken)
     {
-        $apiUser = $this->findOneBy(['apiToken' => $apiToken]);
-
-        if (!$apiUser) {
-            throw new AuthenticationCredentialsNotFoundException();
-        }
-
-        return $apiUser;
+        return $this->findOneBy(['apiToken' => $apiToken]);
     }
 }
