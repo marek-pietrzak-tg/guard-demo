@@ -3,8 +3,10 @@
 namespace AppBundle\Security;
 
 use AppBundle\Repository\ApiUserRepositoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -30,7 +32,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // TODO: Implement start() method.
+        return new JsonResponse(['message' => 'Authentication required!'], 401);
     }
 
     /**
@@ -38,7 +40,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        // TODO: Implement getCredentials() method.
+        return $request->headers->get('X-TOKEN');
     }
 
     /**
@@ -46,7 +48,13 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        // TODO: Implement getUser() method.
+        $apiUser = $this->apiUserRepository->findOneByApiToken($credentials);
+
+        if (!$apiUser) {
+            throw new AuthenticationCredentialsNotFoundException();
+        }
+
+        return $apiUser;
     }
 
     /**
@@ -54,7 +62,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // TODO: Implement checkCredentials() method.
+        // valid token === credentials are correct
+        return true;
     }
 
     /**
@@ -62,7 +71,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        return new JsonResponse(['message' => $exception->getMessageKey()], 403);
     }
 
     /**
@@ -70,7 +79,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // TODO: Implement onAuthenticationSuccess() method.
+        // do nothing
+        return;
     }
 
     /**
@@ -78,6 +88,6 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function supportsRememberMe()
     {
-        // TODO: Implement supportsRememberMe() method.
+        return false;
     }
 }
