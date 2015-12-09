@@ -15,13 +15,13 @@ You can checkout each tag and take a look around in the code.
 
 To start, run:
 ```
-git checkout step1
+git checkout 1-start
 ```
 
-- step2 gives you all the code you need to implement the body of FormLoginAuthenticator
-- step3 comes with working FormLoginAuthenticator
-- step4 gives you all the code you need to implement the body of ApiTokenAuthenticator
-- step5 comes with working ApiTokenAuthenticator
+- 2-first-authenticator gives you all the code you need to implement the body of FormLoginAuthenticator
+- 3-first-authenticator-done comes with working FormLoginAuthenticator
+- 4-api-authenticator gives you all the code you need to implement the body of ApiTokenAuthenticator
+- 5-api-authenticator-done comes with working ApiTokenAuthenticator
 
 To test the API authenticator, run from the command line:
 ```
